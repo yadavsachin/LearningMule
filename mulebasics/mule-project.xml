@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <mule-project xmlns="http://www.mulesoft.com/tooling/project" runtimeId="org.mule.tooling.server.3.8.1.ee" schemaVersion="5.3.0.0">
     <name>MuleBasics</name>
-    <description></description>
+    <description>Introduction:&#xD;
+----------------------------------------------------------------------&#xD;
+This project is for learning purpose and we'll try to include most of the useful example as a part of this project. We are trying to have a series of projects which will include most of the features and this project is basically intended to have examples of basic features in Mule like Flow, Sub-flow, HTTP connector etc.</description>
 </mule-project>
