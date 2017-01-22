@@ -1,0 +1,10 @@
+{
+  "errors": [
+    {
+      "type": #[payload.type],
+      "code": #[payload.code],
+      "source": #[payload.source],
+      "message": #[payload.message]
+    }
+  ]
+}
