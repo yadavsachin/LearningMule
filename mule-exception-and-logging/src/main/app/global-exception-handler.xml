@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd">
+    <choice-exception-strategy name="global-exception-handler">
+        <catch-exception-strategy when="#[exception.causedBy(com.mulesoft.weave.mule.exception.WeaveExecutionException)]" doc:name="DataWeave Exception">
+            <logger message=":: DataWeave Exception :: Mule Message - #[message]" level="INFO" doc:name="Log Exception"/>
+            <set-variable variableName="exceptionType" value="#['MULE_EXCEPTION']" doc:name="Set Exception Type"/>
+            <set-variable variableName="exceptionCode" value="#['ML_EXP_01']" doc:name="Set Exception Code"/>
+            <set-variable variableName="exceptionCause" value="#[exception.cause != null ? exception.cause : exception]" doc:name="Set Exception Cause"/>
+            <set-variable variableName="errorMessage" value="DataWeave Transformation Exception - #[exception.getMessage()]" doc:name="Set Error Message"/>
+            <flow-ref name="generate-error-response" doc:name="generate-error-response"/>
+        </catch-exception-strategy>
+        <catch-exception-strategy doc:name="Business Exception" when="#[exception.causedBy(org.mule.extension.validation.api.ValidationException)]">
+            <logger message=":: Business Exception :: Mule Message - #[message]" level="INFO" doc:name="Log Exception"/>
+            <set-variable variableName="errorMessage" value="#[exception.getMessage()]" doc:name="Set Error Message"/>
+            <set-variable variableName="exceptionCause" value="#[exception.cause != null ? exception.cause : exception]" doc:name="Set Exception Cause"/>
+            <set-variable variableName="exceptionCode" value="#['BUSSINESS_EXP_01']" doc:name="Set Exception Code"/>
+            <set-variable variableName="exceptionType" value="#['BUSINESS_EXCEPTION']" doc:name="Set Exception Type"/>
+            <flow-ref name="generate-error-response" doc:name="generate-error-response"/>
+        </catch-exception-strategy>
+    </choice-exception-strategy>
+    <sub-flow name="generate-error-response">
+        <dw:transform-message doc:name="Transform Message">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	"error" : {
+		"code" : flowVars.exceptionCode,
+		"type" : flowVars.exceptionType,
+		"source" : flowVars.exceptionCause,
+		"message" : flowVars.errorMessage
+	}
+}]]></dw:set-payload>
+        </dw:transform-message>
+    </sub-flow>
+</mule>
