@@ -8,5 +8,10 @@ LearningMule is free learning tutorial for everyone who want to learn and build 
    :hidden:
    :caption: Introduction
 
-   standards/naming-convention
+.. toctree::
+   :maxdepth: 2
+   :hidden:
+   :caption: Naming Convention
+   
+   standards/application_naming_convention
    
