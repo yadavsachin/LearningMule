@@ -4,7 +4,7 @@ Welcome to LearningMule
 LearningMule is free learning tutorial for everyone who want to learn and build application using Mule ESB
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :hidden:
    :caption: Introduction
 
