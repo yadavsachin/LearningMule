@@ -13,5 +13,5 @@ LearningMule is free learning tutorial for everyone who want to learn and build 
    :hidden:
    :caption: Naming Convention
    
-   standards/application_naming_convention
+   standards/naming_convention/application_naming_convention
    
