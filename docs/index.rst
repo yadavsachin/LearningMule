@@ -9,7 +9,7 @@ LearningMule is free learning tutorial for everyone who want to learn and build 
    :caption: Introduction
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :hidden:
    :caption: Naming Convention
    
