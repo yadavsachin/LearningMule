@@ -8,5 +8,5 @@ LearningMule is free learning tutorial for everyone who want to learn and build 
    :hidden:
    :caption: Introduction
    
-   standards/naming_convention.rst
+   standards/naming-convention.rst
    
